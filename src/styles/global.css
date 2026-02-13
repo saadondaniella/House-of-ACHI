@@ -10,6 +10,7 @@ body {
   background: #fbfae7;
   color: black;
   margin: 0;
+  font-family: "Noto Sans JP", sans-serif;
 }
 
 /* HERO */
@@ -23,11 +24,9 @@ body {
   width: 1440px;
   max-width: 100%;
   margin: 0 auto;
-
   display: flex;
   flex-direction: column;
   align-items: center;
-
   padding-top: 5px;
   padding-bottom: 24px;
   gap: 24px;
@@ -45,7 +44,6 @@ body {
 .hero-title-wrap {
   position: relative;
   width: 100%;
-
   display: flex;
   justify-content: center;
   align-items: center;
@@ -54,13 +52,11 @@ body {
 .hero-block {
   position: absolute;
   left: 50%;
-  top: 60%;
+  top: 80%;
   transform: translate(-50%, -50%);
-
-  width: min(350px, 60vw);
+  width: min(400px, 60vw);
   aspect-ratio: 1 / 1;
   height: auto;
-
   z-index: 0;
 }
 
@@ -70,7 +66,8 @@ body {
   margin: 0;
   padding-top: 8%;
   text-align: center;
-  font-size: 100px;
+  font-size: clamp(2.8rem, 8vw, 6.25rem);
+  font-weight: 800;
   letter-spacing: 10px;
 }
 
@@ -81,7 +78,7 @@ body {
   z-index: 10;
   width: 100%;
   background: #fbfae7;
-  padding: 30px 0;
+  padding: 40px 0;
   margin: 0;
 }
 
@@ -125,7 +122,7 @@ body {
 /* Sektioner */
 .section {
   scroll-margin-top: 110px;
-  padding: 120px 0;
+  padding: 30px 0;
 }
 
 .section-inner {
@@ -135,13 +132,17 @@ body {
   padding: 0 20px;
 }
 
-/* Mobile (layout först, hamburger senare) */
+/* Mobile (layout) */
 @media (max-width: 640px) {
   .hero-nav-inner {
     grid-template-columns: 1fr;
     gap: 12px;
   }
-
+  .hero-title {
+    padding-top: 20%;
+    letter-spacing: 6px;
+    line-height: 1.1;
+  }
   .hero-line {
     display: none;
   }
@@ -149,5 +150,198 @@ body {
   .hero-links {
     gap: 14px;
     flex-wrap: wrap;
+  }
+}
+
+/* WHO IS ACHI */
+.section-who {
+  padding-top: 100px;
+}
+
+.who-header {
+  max-width: 640px;
+  margin: 0 auto;
+  text-align: left;
+}
+
+.who-title {
+  margin: 0 0 14px;
+  font-size: 2rem;
+}
+
+.who-text {
+  font-size: 1rem;
+  line-height: 1.6;
+  opacity: 0.95;
+}
+
+.who-text p {
+  margin: 0 0 12px;
+}
+
+.who-lead {
+  font-weight: 600;
+}
+
+.who-media {
+  margin-top: 80px;
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  row-gap: 60px;
+}
+
+.who-image {
+  display: block;
+  height: auto;
+  border-radius: 2px;
+}
+
+.who-image--main {
+  grid-column: 7 / 11;
+  width: 100%;
+  max-width: 400px;
+  justify-self: end;
+}
+
+.who-image--secondary {
+  grid-column: 4 / 8;
+  width: 100%;
+  max-width: 300px;
+  justify-self: start;
+}
+
+@media (max-width: 900px) {
+  .who-image--main,
+  .who-image--secondary {
+    grid-column: 3 / 11; /* samma kolumner = samma bredd */
+    max-width: none; /* låt grid styra storleken */
+    justify-self: center; /* snyggt och stabilt */
+  }
+
+  .who-media {
+    grid-template-columns: 1fr;
+    row-gap: 30px;
+  }
+
+  .who-image--main,
+  .who-image--secondary {
+    grid-column: auto;
+  }
+}
+
+/* THE ACHI WAY */
+
+.section-way {
+  padding-top: 50px;
+}
+
+.way-content {
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.way-title {
+  font-size: 2rem;
+  margin-bottom: 20px;
+}
+
+.way-list {
+  list-style: disc;
+  padding-left: 18px;
+  margin: 0 0 20px;
+  font-size: 1rem;
+}
+
+.way-list li {
+  margin-bottom: 8px;
+}
+
+.way-value h3 {
+  font-size: 1rem;
+  letter-spacing: 0.08em;
+  margin-bottom: 6px;
+}
+
+.way-value p {
+  margin: 0;
+  line-height: 1.6;
+  font-size: 1rem;
+}
+
+/* CASES */
+.cases {
+  margin-top: 140px;
+}
+
+.case-panel {
+  position: relative;
+  display: block;
+  min-height: 100vh;
+  text-decoration: none;
+  color: inherit;
+  /* padding: 120px 0; */
+}
+
+.case-grid {
+  width: min(1100px, 100%);
+  margin: 0 auto;
+  padding: 0 20px;
+
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  grid-auto-rows: 60px;
+  gap: 22px;
+  align-items: start;
+}
+
+.case-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Placeringar (matcha Keynote-känslan) */
+.case-img--tall {
+  grid-column: 1 / 6;
+  grid-row: 1 / 10;
+}
+
+.case-img--top {
+  grid-column: 8 / 13;
+  grid-row: 1 / 5;
+}
+
+.case-img--wide {
+  grid-column: 7 / 15;
+  grid-row: 7 / 11;
+}
+
+.case-title-denim {
+  position: absolute;
+  left: 18%;
+  top: 18%;
+  font-size: clamp(3rem, 8vw, 8rem);
+  letter-spacing: 0.05em;
+  line-height: 1;
+  margin: 0;
+  color: #bfff00;
+}
+
+@media (max-width: 768px) {
+  .case-panel {
+    grid-template-columns: 1fr;
+    min-height: 80vh;
+  }
+
+  .case-media {
+    grid-column: auto;
+  }
+
+  .case-title {
+    position: absolute;
+    bottom: 10%;
+    left: 5%;
+    font-size: 2.5rem;
   }
 }
