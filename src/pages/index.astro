@@ -1,17 +1,69 @@
 ---
-
+import BaseLayout from "../layouts/BaseLayout.astro";
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<BaseLayout title="House of Achi">
+  <section class="hero">
+    <div class="hero-inner">
+      <img
+        src="/images/site/logo.png"
+        alt="House of Achi logo"
+        class="hero-logo"
+      />
+
+      <div class="hero-title-wrap">
+        <img
+          src="/images/site/hero-block.png"
+          alt=""
+          aria-hidden="true"
+          class="hero-block"
+        />
+        <h1 class="hero-title">HOUSE OF ACHI</h1>
+      </div>
+    </div>
+  </section>
+
+  <nav class="hero-nav" aria-label="Sektioner">
+    <div class="hero-nav-inner">
+      <span class="hero-line" aria-hidden="true"></span>
+
+      <div class="hero-links">
+        <a href="#who">WHO IS ACHI</a>
+        <a href="#way">THE ACHI WAY</a>
+        <a href="#cases">CASES</a>
+        <a href="#talk">LET’S TALK</a>
+      </div>
+
+      <span class="hero-line" aria-hidden="true"></span>
+    </div>
+  </nav>
+
+  <section id="who" class="section">
+    <div class="section-inner">
+      <h2>Who is Achi</h2>
+      <p>Placeholder text...</p>
+    </div>
+  </section>
+
+  <section id="way" class="section">
+    <div class="section-inner">
+      <h2>The Achi Way</h2>
+      <p>Placeholder text...</p>
+    </div>
+  </section>
+
+  <section id="cases" class="section">
+    <div class="section-inner">
+      <h2>Cases</h2>
+      <p>Placeholder text...</p>
+    </div>
+  </section>
+
+  <section id="talk" class="section">
+    <div class="section-inner">
+      <h2>Let’s talk</h2>
+      <p>Placeholder text...</p>
+    </div>
+  </section>
+</BaseLayout>
+
