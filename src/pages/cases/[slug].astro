@@ -1,0 +1,310 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { cases } from "../../data/cases.js";
+
+export function getStaticPaths() {
+  return cases.map((c) => ({
+    params: { slug: c.slug },
+    props: { caseItem: c },
+  }));
+}
+
+const { caseItem } = Astro.props;
+---
+
+<BaseLayout title={`${caseItem.title} — House of Achi`}>
+  <main class="case-page">
+    <main id="top" class="case">
+      <header class="case-hero">
+        <div class="case-hero-inner">
+          <a href="/#cases" class="case-back">← Back to cases</a>
+
+          <div class="case-hero-title">
+            <h1>{caseItem.title}</h1>
+
+            <div class="case-meta">
+              {caseItem.client && <span>{caseItem.client}</span>}
+              {caseItem.year && <span>{caseItem.year}</span>}
+            </div>
+          </div>
+
+          <div class="case-hero-media">
+            {
+              caseItem.heroMedia.type === "image" ? (
+                <img
+                  src={caseItem.heroMedia.src}
+                  alt={caseItem.heroMedia.alt ?? ""}
+                  loading="eager"
+                />
+              ) : (
+                <video
+                  src={caseItem.heroMedia.src}
+                  autoplay
+                  muted
+                  loop
+                  playsinline
+                  preload="metadata"
+                />
+              )
+            }
+          </div>
+        </div>
+      </header>
+
+      {
+        caseItem.introVideo && (
+          <section class="case-intro-video">
+            <div class="case-intro-video-inner">
+              <video
+                src={caseItem.introVideo.src}
+                poster={caseItem.introVideo.poster}
+                autoplay
+                muted
+                loop
+                playsinline
+                preload="metadata"
+              />
+            </div>
+          </section>
+        )
+      }
+
+      {
+        caseItem.description?.length ? (
+          <section class="case-text">
+            <div class="case-text-inner">
+              {caseItem.description.map((p) => (
+                <p>{p}</p>
+              ))}
+            </div>
+          </section>
+        ) : null
+      }
+
+      <section class="case-gallery" aria-label="Case gallery">
+        <div class="case-gallery-inner">
+          {
+            caseItem.gallery.map((item) =>
+              item.type === "image" ? (
+                <figure class="case-tile">
+                  <img src={item.src} alt={item.alt ?? ""} loading="lazy" />
+                </figure>
+              ) : (
+                <figure class="case-tile">
+                  <video
+                    src={item.src}
+                    poster={item.poster}
+                    autoplay
+                    muted
+                    loop
+                    playsinline
+                    preload="metadata"
+                  />
+                </figure>
+              ),
+            )
+          }
+        </div>
+      </section>
+      <section class="case-back-top">
+        <a href="#top">↑ Back to top</a>
+      </section>
+    </main>
+  </main>
+
+  <style>
+    .case-page {
+      padding-bottom: 120px;
+    }
+
+    /* HERO: mer subtil, mindre "splash" */
+    .case-hero {
+      padding: 90px 0 30px; /* mindre luft än innan */
+    }
+
+    .case-hero-inner {
+      width: 1440px;
+      max-width: 100%;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    .case-back {
+      display: inline-block;
+      text-decoration: none;
+      color: inherit;
+      opacity: 0.8;
+      margin-bottom: 18px;
+    }
+    .case-back:hover {
+      opacity: 1;
+    }
+
+    .case-hero-title h1 {
+      margin: 0;
+      font-size: clamp(2.4rem, 6.5vw, 5.4rem);
+      letter-spacing: 0.08em;
+      line-height: 1;
+    }
+
+    .case-meta {
+      margin-top: 10px;
+      display: flex;
+      gap: 14px;
+      opacity: 0.8;
+      font-size: 0.95rem;
+    }
+
+    /* HERO MEDIA: smalare + max-bredd så den känns subtil */
+    .case-hero-media {
+      margin-top: 28px;
+      width: min(780px, 100%); /* <-- detta gör heron mer subtil */
+      margin-left: auto; /* högerställd (passar din vibe) */
+    }
+
+    .case-hero-media img,
+    .case-hero-media video {
+      width: 100%;
+      height: auto;
+      display: block;
+      object-fit: cover;
+      border-radius: 2px;
+      aspect-ratio: 4 / 5; /* ger mer "editorial" känsla än superwide */
+    }
+
+    /* Intro-video: lite bredare än hero för hierarki */
+    .case-intro-video {
+      padding: 44px 0 24px;
+    }
+
+    .case-intro-video-inner {
+      width: min(1100px, 100%);
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    .case-intro-video video {
+      width: 100%;
+      height: auto;
+      display: block;
+      object-fit: cover;
+      border-radius: 2px;
+      aspect-ratio: 16 / 9;
+    }
+
+    /* Text */
+    .case-text {
+      padding: 26px 0 10px;
+    }
+
+    .case-text-inner {
+      width: min(700px, 100%);
+      margin: 0 auto;
+      padding: 0 20px;
+      line-height: 1.7;
+      opacity: 0.95;
+    }
+
+    .case-text-inner p {
+      margin: 0 0 14px;
+    }
+
+    /* Gallery */
+    .case-gallery {
+      padding-top: 40px;
+    }
+
+    .case-gallery-inner {
+      width: 1440px;
+      max-width: 100%;
+      margin: 0 auto;
+      padding: 0 20px;
+
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 22px;
+    }
+
+    .case-tile {
+      margin: 0;
+      grid-column: span 6;
+    }
+
+    .case-tile img,
+    .case-tile video {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+      border-radius: 2px;
+    }
+
+    /* Gör bilderna konsekventa i höjd också (så det känns curated) */
+    .case-tile img {
+      aspect-ratio: 4 / 5;
+    }
+
+    .case-tile video {
+      aspect-ratio: 16 / 9;
+    }
+
+    /* Tablet */
+    @media (max-width: 900px) {
+      .case-hero {
+        padding: 80px 0 22px;
+      }
+
+      .case-hero-media {
+        width: min(720px, 100%);
+        margin-left: 0; /* mer neutral på tablet */
+      }
+
+      .case-intro-video {
+        padding: 34px 0 18px;
+      }
+
+      .case-tile {
+        grid-column: span 12;
+      }
+    }
+
+    /* Small mobile */
+    @media (max-width: 640px) {
+      .case-hero-title h1 {
+        letter-spacing: 0.06em;
+      }
+
+      .case-hero-media img,
+      .case-hero-media video {
+        aspect-ratio: 4 / 5;
+      }
+
+      .case-intro-video video {
+        aspect-ratio: 16 / 9;
+      }
+    }
+
+    .case-back-top {
+      margin-top: 50px;
+      width: 1440px;
+      max-width: 100%;
+      margin-left: auto;
+      margin-right: auto;
+      padding: 0 20px; /* samma sid-padding som resten */
+      text-align: left;
+    }
+
+    .case-back-top a {
+      text-decoration: none;
+      color: inherit;
+      opacity: 0.8;
+      letter-spacing: 0.05em;
+      font-size: 0.9rem;
+    }
+
+    .case-back-top a:hover {
+      opacity: 1;
+    }
+
+  </style>
+</BaseLayout>

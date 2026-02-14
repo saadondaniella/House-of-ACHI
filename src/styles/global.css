@@ -188,44 +188,55 @@ body {
   display: grid;
   grid-template-columns: repeat(12, 1fr);
   row-gap: 60px;
+  margin-bottom: -140px; /* <-- matcha din translateY */
+  padding-bottom: 140px;
 }
 
 .who-image {
   display: block;
   height: auto;
   border-radius: 2px;
+  width: 100%;
 }
 
 .who-image--main {
   grid-column: 7 / 11;
-  width: 100%;
   max-width: 400px;
   justify-self: end;
 }
 
 .who-image--secondary {
   grid-column: 4 / 8;
-  width: 100%;
   max-width: 300px;
   justify-self: start;
+  margin-top: -140px; /* <-- detta tar bort spökspace */
 }
 
+/* Tablet + Mobile */
 @media (max-width: 900px) {
-  .who-image--main,
-  .who-image--secondary {
-    grid-column: 3 / 11; /* samma kolumner = samma bredd */
-    max-width: none; /* låt grid styra storleken */
-    justify-self: center; /* snyggt och stabilt */
-  }
-
   .who-media {
     grid-template-columns: 1fr;
-    row-gap: 30px;
+    gap: 30px; /* tydligt mellanrum */
+    row-gap: initial; /* för säkerhets skull */
+  }
+
+  .who-image--secondary {
+    margin-top: 0;
   }
 
   .who-image--main,
   .who-image--secondary {
     grid-column: auto;
+    max-width: 100%;
+    justify-self: center;
+    transform: none; /* <-- VIKTIG: tar bort "uppflytt" i mobil */
+  }
+}
+
+/* Small mobile */
+@media (max-width: 640px) {
+  .who-media {
+    gap: 22px;
   }
 }
 
@@ -345,3 +356,64 @@ body {
     font-size: 2.5rem;
   }
 }
+.case-panel:hover .case-title-denim {
+  transform: translateY(-6px);
+  transition: transform 500ms ease;
+}
+
+@media (max-width: 768px) {
+
+  .case-grid {
+    display: flex;
+    gap: 16px;
+
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+
+    padding-left: 20px;
+    padding-right: 20px;
+
+    scroll-padding-left: 20px;
+  }
+
+  .case-img {
+    flex: 0 0 80vw;
+    aspect-ratio: 4 / 5;
+    scroll-snap-align: start;
+    border-radius: 2px;
+  }
+
+  /* Neutralisera grid-positioner */
+  .case-img--tall,
+  .case-img--top,
+  .case-img--wide {
+    grid-column: auto;
+    grid-row: auto;
+  }
+
+  /* Dölj scrollbar snyggt */
+  .case-grid::-webkit-scrollbar {
+    display: none;
+  }
+
+  .case-grid {
+    scrollbar-width: none; /* Firefox */
+  }
+
+  .case-title-denim {
+    left: 8%;
+    top: 14%;
+    font-size: clamp(2.4rem, 10vw, 3.6rem);
+  }
+    .cases {
+    margin-top: 60px;
+  }
+
+  .case-panel {
+    min-height: auto;
+    padding: 40px 0;
+  }
+}
+
+
