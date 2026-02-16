@@ -1,0 +1,20 @@
+---
+const navItems = Astro.props.items ?? [
+  { href: "#who", label: "WHO IS ACHI" },
+  { href: "#way", label: "THE ACHI WAY" },
+  { href: "#cases", label: "CASES" },
+  { href: "#talk", label: "LET’S TALK" },
+];
+---
+
+<nav class="hero-nav" aria-label="Sektioner">
+  <div class="hero-nav-inner">
+    <span class="hero-line" aria-hidden="true"></span>
+
+    <div class="hero-links">
+      {navItems.map((item) => <a href={item.href}>{item.label}</a>)}
+    </div>
+
+    <span class="hero-line" aria-hidden="true"></span>
+  </div>
+</nav>

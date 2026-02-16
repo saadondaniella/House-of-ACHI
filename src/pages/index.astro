@@ -1,42 +1,16 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import Header from "../components/Header.astro";
+import Nav from "../components/Nav.astro";
+import Footer from "../components/Footer.astro";
+import CaseCard from "../components/CaseCard.astro";
+import ContactForm from "../components/ContactForm.astro";
+import { cases } from "../data/cases.js";
 ---
 
 <BaseLayout title="House of Achi">
-  <section class="hero">
-    <div class="hero-inner">
-      <img
-        src="/images/site/logo.png"
-        alt="House of Achi logo"
-        class="hero-logo"
-      />
-
-      <div class="hero-title-wrap">
-        <img
-          src="/images/site/hero-block.png"
-          alt=""
-          aria-hidden="true"
-          class="hero-block"
-        />
-        <h1 class="hero-title">HOUSE OF ACHI</h1>
-      </div>
-    </div>
-  </section>
-
-  <nav class="hero-nav" aria-label="Sektioner">
-    <div class="hero-nav-inner">
-      <span class="hero-line" aria-hidden="true"></span>
-
-      <div class="hero-links">
-        <a href="#who">WHO IS ACHI</a>
-        <a href="#way">THE ACHI WAY</a>
-        <a href="#cases">CASES</a>
-        <a href="#talk">LET’S TALK</a>
-      </div>
-
-      <span class="hero-line" aria-hidden="true"></span>
-    </div>
-  </nav>
+  <Header />
+  <Nav />
 
   <section id="who" class="section section-who">
     <div class="section-inner">
@@ -128,44 +102,50 @@ import BaseLayout from "../layouts/BaseLayout.astro";
   </section>
 
   <section id="cases" class="cases">
-    <a href="/cases/denim" class="case-panel" aria-label="Open case Denim">
-      <div class="case-grid">
-        <img
-          src="/images/cases/denim/denim-hero.jpg"
-          alt="Denim"
-          class="case-img case-img--tall"
-          loading="lazy"
+    {
+      cases.map((c) => (
+        <CaseCard
+          href={`/cases/${c.slug}`}
+          title={c.title}
+          images={
+            c.preview
+              ? c.preview.map((src, i) => ({
+                  src,
+                  alt: "",
+                  class:
+                    i === 0
+                      ? "case-img case-img--tall"
+                      : i === 1
+                        ? "case-img case-img--top"
+                        : "case-img case-img--wide",
+                }))
+              : [
+                  c.heroMedia && {
+                    src: c.heroMedia.src,
+                    alt: c.heroMedia.alt ?? "",
+                    class: "case-img case-img--tall",
+                  },
+                  ...(c.gallery
+                    ? c.gallery
+                        .filter((g) => g.type === "image")
+                        .slice(0, 2)
+                        .map((g, idx) => ({
+                          src: g.src,
+                          alt: g.alt ?? "",
+                          class:
+                            idx === 0
+                              ? "case-img case-img--top"
+                              : "case-img case-img--wide",
+                        }))
+                    : []),
+                ].filter(Boolean)
+          }
+          variant={c.slug}
         />
-        <img
-          src="/images/cases/denim/denim-2.jpg"
-          alt=""
-          class="case-img case-img--top"
-          loading="lazy"
-        />
-        <img
-          src="/images/cases/denim/denim-3.jpg"
-          alt=""
-          class="case-img case-img--wide"
-          loading="lazy"
-        />
-      </div>
-
-      <h2 class="case-title-denim">DENIM</h2>
-    </a>
+      ))
+    }
   </section>
 
-  <a href="/cases/lacko" class="case-panel">
-    <div class="case-media case-media--lacko">
-      <img src="/images/cases/lacko-hero.jpg" alt="Läckö case" />
-    </div>
-
-    <h2 class="case-title">LÄCKÖ</h2>
-  </a>
- 
-<section id="talk" class="section">
-  <div class="section-inner">
-    <h2>Let’s talk</h2>
-    <p>Placeholder text...</p>
-  </div>
-</section>
-
+  <ContactForm to="saadondaniella@gmail.com" />
+  <Footer />
+</BaseLayout>

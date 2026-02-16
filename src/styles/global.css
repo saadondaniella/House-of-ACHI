@@ -10,7 +10,7 @@ body {
   background: #fbfae7;
   color: black;
   margin: 0;
-  font-family: "Noto Sans JP", sans-serif;
+  font-family: "Montserrat", sans-serif;
 }
 
 /* HERO */
@@ -293,6 +293,12 @@ body {
   /* padding: 120px 0; */
 }
 
+/* Variant för single-panel (t.ex. lacko) — mindre höjd så nästa sektion ligger utanför panelen */
+.case-panel--single {
+  min-height: auto;
+  padding: 60px 0;
+}
+
 .case-grid {
   width: min(1100px, 100%);
   margin: 0 auto;
@@ -303,6 +309,20 @@ body {
   grid-auto-rows: 60px;
   gap: 22px;
   align-items: start;
+}
+
+/* Keep images and grids within viewport so following sections are not overlapped */
+.case-panel {
+  overflow: hidden;
+}
+.case-grid,
+.case-media {
+  max-height: 100vh;
+}
+.case-img {
+  max-height: 100vh;
+  height: auto;
+  display: block;
 }
 
 .case-img {
@@ -325,7 +345,7 @@ body {
 
 .case-img--wide {
   grid-column: 7 / 15;
-  grid-row: 7 / 11;
+  grid-row: 6 / 10;
 }
 
 .case-title-denim {
@@ -362,7 +382,6 @@ body {
 }
 
 @media (max-width: 768px) {
-
   .case-grid {
     display: flex;
     gap: 16px;
@@ -406,7 +425,7 @@ body {
     top: 14%;
     font-size: clamp(2.4rem, 10vw, 3.6rem);
   }
-    .cases {
+  .cases {
     margin-top: 60px;
   }
 
@@ -415,5 +434,3 @@ body {
     padding: 40px 0;
   }
 }
-
-

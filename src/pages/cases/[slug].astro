@@ -10,6 +10,7 @@ export function getStaticPaths() {
 }
 
 const { caseItem } = Astro.props;
+const gallery = caseItem.gallery || [];
 ---
 
 <BaseLayout title={`${caseItem.title} — House of Achi`}>
@@ -84,12 +85,12 @@ const { caseItem } = Astro.props;
       <section class="case-gallery" aria-label="Case gallery">
         <div class="case-gallery-inner">
           {
-            caseItem.gallery.map((item) =>
+            gallery.map((item) =>
               item.type === "image" ? (
                 <figure class="case-tile">
                   <img src={item.src} alt={item.alt ?? ""} loading="lazy" />
                 </figure>
-              ) : (
+              ) : item.type === "video" ? (
                 <figure class="case-tile">
                   <video
                     src={item.src}
@@ -101,7 +102,16 @@ const { caseItem } = Astro.props;
                     preload="metadata"
                   />
                 </figure>
-              ),
+              ) : item.type === "text" ? (
+                <figure class="case-tile case-text-tile">
+                  <div class="case-text-card">
+                    <h3>{item.title}</h3>
+                    {item.paragraphs?.map((p) => (
+                      <p>{p}</p>
+                    ))}
+                  </div>
+                </figure>
+              ) : null,
             )
           }
         </div>
@@ -136,6 +146,7 @@ const { caseItem } = Astro.props;
       opacity: 0.8;
       margin-bottom: 18px;
     }
+
     .case-back:hover {
       opacity: 1;
     }
@@ -219,15 +230,38 @@ const { caseItem } = Astro.props;
       max-width: 100%;
       margin: 0 auto;
       padding: 0 20px;
-
       display: grid;
       grid-template-columns: repeat(12, 1fr);
       gap: 22px;
     }
 
+    .case-text-tile {
+      grid-column: span 12;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .case-text-card {
+      max-width: 900px;
+      padding: 28px 20px;
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 12px 30px rgba(10, 12, 20, 0.06);
+      border: 1px solid rgba(10, 10, 10, 0.04);
+    }
+    .case-text-card h3 {
+      margin: 0 0 8px 0;
+      font-size: 1.2rem;
+    }
+    .case-text-card p {
+      margin: 0 0 10px 0;
+      line-height: 1.6;
+      opacity: 0.95;
+    }
+
     .case-tile {
       margin: 0;
-      grid-column: span 6;
+      grid-column: span 4; /* 4, 6, 8 bestämmer antal bilder */
     }
 
     .case-tile img,
@@ -241,7 +275,7 @@ const { caseItem } = Astro.props;
 
     /* Gör bilderna konsekventa i höjd också (så det känns curated) */
     .case-tile img {
-      aspect-ratio: 4 / 5;
+      aspect-ratio: 3 / 4;
     }
 
     .case-tile video {
@@ -305,6 +339,5 @@ const { caseItem } = Astro.props;
     .case-back-top a:hover {
       opacity: 1;
     }
-
   </style>
 </BaseLayout>
