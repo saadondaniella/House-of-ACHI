@@ -1,131 +1,26 @@
 ---
-const {
-  href = "#",
-  title = "",
-  images = [],
-  variant = "default",
-} = Astro.props;
+const { href = "#", title = "", images = [], reverse = false } = Astro.props;
 ---
 
-<a
-  href={href}
-  class={`case-panel ${variant === "lacko" ? "case-panel--single" : ""}`}
-  aria-label={`Open case ${title}`}
->
-  {
-    images.length > 1 ? (
-      // For lacko we keep the grid but render an overlay title over the grid
-      variant === "lacko" ? (
-        <div class="case-grid case-grid--overlay">
-          {images.map((img) => (
-            <img
-              src={img.src}
-              alt={img.alt ?? ""}
-              class={img.class ?? "case-img"}
-              loading="lazy"
-            />
-          ))}
-
-          <h2 class="overlay-title">{title}</h2>
+<a href={href} class="case-panel" aria-label={`Open case ${title}`}>
+  <div class={`case-grid ${reverse ? "case-grid--reverse" : ""}`}>
+    {
+      images.map((img) => (
+        <div class="case-slide">
+          <img
+            src={img.src}
+            alt={img.alt ?? ""}
+            class={img.class ?? "case-img"}
+            loading="lazy"
+          />
         </div>
-      ) : (
-        <div class="case-grid">
-          {images.map((img) => (
-            <img
-              src={img.src}
-              alt={img.alt ?? ""}
-              class={img.class ?? "case-img"}
-              loading="lazy"
-            />
-          ))}
-        </div>
-      )
-    ) : (
-      <div
-        class={`case-media ${variant === "lacko" ? "case-media--lacko" : ""}`}
-      >
-        <img
-          src={images[0]?.src ?? ""}
-          alt={images[0]?.alt ?? title}
-          loading="lazy"
-        />
-      </div>
-    )
-  }
+      ))
+    }
+  </div>
 
-  <h2
-    class={`case-title ${variant === "denim" ? "case-title-denim" : ""} ${variant === "lacko" ? "visually-hidden" : ""}`}
-  >
-    {title}
-  </h2>
+  <div class="case-meta">
+    <h2 class="case-title">{title}</h2>
+    <span class="case-see-more">See more →</span>
+  </div>
 
-  <span class="case-see-more">See more →</span>
-
-  <style>
-    .case-grid--overlay {
-      position: relative;
-    }
-    .case-grid--overlay img {
-      display: block;
-      width: 100%;
-      height: auto;
-      object-fit: cover;
-    }
-    .overlay-title {
-      position: absolute;
-      left: 24px;
-      bottom: 20px;
-      margin: 0;
-      color: #fff;
-      font-weight: 700;
-      font-size: clamp(1.8rem, 4vw, 3.6rem);
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      text-shadow: 0 6px 18px rgba(0, 0, 0, 0.5);
-      pointer-events: none;
-    }
-    .visually-hidden {
-      position: absolute !important;
-      height: 1px;
-      width: 1px;
-      overflow: hidden;
-      clip: rect(1px, 1px, 1px, 1px);
-      white-space: nowrap;
-      border: 0;
-      padding: 0;
-      margin: -1px;
-    }
-
-    .case-see-more {
-      display: inline-block;
-      margin-top: 8px;
-      color: black;
-      font-size: 1rem;
-      letter-spacing: 0.01em;
-      transition:
-        opacity 0.12s ease,
-        transform 0.12s ease;
-      opacity: 0.85;
-    }
-    a.case-panel:hover .case-see-more {
-      opacity: 1;
-      transform: translateY(-1px);
-    }
-    /* Align title and CTA with site inner padding */
-    .case-title,
-    .case-see-more {
-      display: block;
-      max-width: 1100px;
-      margin-left: auto;
-      margin-right: auto;
-      padding: 0 20px;
-    }
-    @media (max-width: 720px) {
-      .overlay-title {
-        font-size: clamp(1.4rem, 6vw, 2rem);
-        left: 16px;
-        bottom: 14px;
-      }
-    }
-  </style>
 </a>

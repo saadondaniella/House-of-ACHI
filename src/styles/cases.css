@@ -1,0 +1,225 @@
+/* =========================================================
+   CASES (INDEX)
+========================================================= */
+
+.cases {
+  margin-top: 140px;
+}
+
+.case-panel {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+}
+
+/* spacing between cases (mobile overrides later) */
+.cases > .case-panel + .case-panel {
+  margin-top: 100px;
+}
+
+/* =========================================================
+   DESKTOP: each case = 100vh
+========================================================= */
+@media (min-width: 769px) {
+  .cases > .case-panel {
+    min-height: 100vh;
+
+    display: grid;
+    grid-template-rows: 1fr auto; /* bilder + meta */
+    align-items: center;
+
+    padding: 50px 0; /* luft uppe och nere */
+  }
+
+  /* Bilderna */
+  .case-grid {
+    height: auto;          /* viktigt: INTE 100vh */
+    max-height: 85vh;      /* <-- här är din 85vh */
+  }
+
+  /* Rubrik + meta */
+  .case-meta {
+    margin-top: 16px;
+    padding: 0 20px;
+  }
+
+  /* Ta bort extra spacing mellan cases */
+  .cases > .case-panel + .case-panel {
+    margin-top: 0;
+  }
+}
+
+
+
+/* =========================================================
+   Desktop Grid
+========================================================= */
+
+.case-grid {
+  width: min(1100px, 100%);
+  margin: 0 auto;
+  padding: 0 20px;
+
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  grid-auto-rows: 8vh;
+  gap: 22px;
+}
+
+/* On desktop: wrapper removed so <img> becomes grid item */
+.case-slide {
+  display: contents;
+}
+
+.case-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  border-radius: 2px;
+}
+
+/* Layout (default) */
+.case-img--tall {
+  grid-column: 1 / 6;
+  grid-row: 1 / span 9;
+}
+
+.case-img--top {
+  grid-column: 8 / 13;
+  grid-row: 1 / span 4;
+}
+
+.case-img--wide {
+  grid-column: 7 / 13;
+  grid-row: 6 / span 4;
+}
+
+/* Reverse (mirror) */
+.case-grid--reverse .case-img--tall {
+  grid-column: 8 / 13;
+}
+
+.case-grid--reverse .case-img--top {
+  grid-column: 1 / 6;
+}
+
+.case-grid--reverse .case-img--wide {
+  grid-column: 1 / 7;
+}
+
+/* If you want grid to never exceed viewport height on desktop */
+@media (min-width: 769px) {
+  .case-grid {
+    height: 100vh;
+    max-height: 100vh;
+  }
+}
+
+/* =========================================================
+   CASE META (title + optional link)
+========================================================= */
+
+.case-meta {
+  width: min(1100px, 100%);
+  margin: 14px auto 0;
+  padding: 0 20px;
+}
+
+.case-title {
+  margin: 0 0 8px;
+  /* desktop size */
+  font-size: clamp(2.2rem, 3.2vw, 3.2rem);
+  letter-spacing: 0.10em;
+  text-transform: uppercase;
+  line-height: 1;
+}
+
+/* Hide for now (client presentation) */
+.case-see-more {
+  display: none;
+}
+
+/* =========================================================
+   MOBILE: horizontal scroll, 80vh
+========================================================= */
+
+@media (max-width: 768px) {
+  .cases {
+    margin-top: 60px;
+  }
+
+  .cases > .case-panel + .case-panel {
+    margin-top: 40px;
+  }
+
+  .case-grid {
+    display: flex;
+    gap: 16px;
+
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+
+    width: 100%;
+    margin: 0;
+    padding-left: 20px;
+    padding-right: 20px;
+    scroll-padding-left: 20px;
+  }
+
+  /* wrapper is needed on mobile */
+  .case-slide {
+    display: block;
+    flex: 0 0 80vw;
+    width: 80vw;
+    height: 60vh;
+    scroll-snap-align: start;
+  }
+
+  .case-slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  /* grid placement irrelevant on mobile */
+  .case-img--tall,
+  .case-img--top,
+  .case-img--wide {
+    grid-column: auto;
+    grid-row: auto;
+  }
+
+  /* Mobile title smaller */
+  .case-title {
+    font-size: clamp(1.6rem, 6vw, 2.1rem);
+    letter-spacing: 0.09em;
+  }
+
+  /* Minimal horizontal scrollbar (keep visible) */
+  .case-grid::-webkit-scrollbar {
+    height: 3px;
+  }
+
+  .case-grid::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .case-grid::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.4);
+    border-radius: 2px;
+  }
+
+  .case-grid::-webkit-scrollbar-thumb:hover {
+    background: rgba(0, 0, 0, 0.6);
+  }
+
+  /* Firefox (optional) */
+  /*
+  .case-grid {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(0,0,0,0.4) transparent;
+  }
+  */
+}

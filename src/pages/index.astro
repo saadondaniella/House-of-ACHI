@@ -103,44 +103,20 @@ import { cases } from "../data/cases.js";
 
   <section id="cases" class="cases">
     {
-      cases.map((c) => (
+      cases.map((c, index) => (
         <CaseCard
           href={`/cases/${c.slug}`}
           title={c.title}
-          images={
-            c.preview
-              ? c.preview.map((src, i) => ({
-                  src,
-                  alt: "",
-                  class:
-                    i === 0
-                      ? "case-img case-img--tall"
-                      : i === 1
-                        ? "case-img case-img--top"
-                        : "case-img case-img--wide",
-                }))
-              : [
-                  c.heroMedia && {
-                    src: c.heroMedia.src,
-                    alt: c.heroMedia.alt ?? "",
-                    class: "case-img case-img--tall",
-                  },
-                  ...(c.gallery
-                    ? c.gallery
-                        .filter((g) => g.type === "image")
-                        .slice(0, 2)
-                        .map((g, idx) => ({
-                          src: g.src,
-                          alt: g.alt ?? "",
-                          class:
-                            idx === 0
-                              ? "case-img case-img--top"
-                              : "case-img case-img--wide",
-                        }))
-                    : []),
-                ].filter(Boolean)
-          }
-          variant={c.slug}
+          images={c.preview.map((src, i) => ({
+            src,
+            class:
+              i === 0
+                ? "case-img case-img--tall"
+                : i === 1
+                  ? "case-img case-img--top"
+                  : "case-img case-img--wide",
+          }))}
+          reverse={index % 2 !== 0}
         />
       ))
     }

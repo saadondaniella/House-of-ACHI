@@ -1,0 +1,349 @@
+/* =========================================================
+   CASE PAGE (slug)
+========================================================= */
+
+.case-page {
+  padding-bottom: 140px;
+}
+
+/* =========================================================
+   CASE PAGE (slug)
+========================================================= */
+
+.case-hero {
+  padding: 90px 0 30px;
+}
+
+.case-hero-inner {
+  width: 1440px;
+  max-width: 100%;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.case-back {
+  display: inline-block;
+  text-decoration: none;
+  color: inherit;
+  opacity: 0.8;
+  margin-bottom: 18px;
+}
+.case-back:hover {
+  opacity: 1;
+}
+
+/* Title block: keeps it editorial + aligned */
+.case-hero-title {
+  max-width: 1100px; /* samma "content width" som du vill jobba med */
+}
+
+/* H1 stays big, but cleaner */
+.case-hero-title h1 {
+  margin: 0;
+  font-size: clamp(2.6rem, 6.5vw, 5.4rem);
+  letter-spacing: 0.08em;
+  line-height: 0.95;
+  text-transform: uppercase;
+}
+
+/* META: no centering, no width:auto container logic */
+.case-meta {
+  margin-top: 10px;
+  display: flex;
+  gap: 10px;
+  align-items: baseline;
+  font-size: 0.9rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+/* Nice separator dot without extra markup */
+.case-meta span + span::before {
+  content: "·";
+  margin-right: 10px;
+  opacity: 0.6;
+}
+
+/* Hero row layout */
+.case-hero-row {
+  display: grid;
+  grid-template-columns: 1fr 420px;
+  gap: 28px;
+  align-items: stretch;
+  margin-top: 18px;
+}
+
+.case-hero-media {
+  margin-top: 28px;
+  width: min(780px, 100%);
+  margin-left: auto;
+}
+
+.case-hero-media img,
+.case-hero-media video {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;
+  border-radius: 2px;
+  aspect-ratio: 4 / 5;
+}
+
+/* Tablet */
+@media (max-width: 900px) {
+  .case-hero-row {
+    grid-template-columns: 1fr;
+  }
+
+  .case-hero-media {
+    width: min(720px, 100%);
+    margin-left: 0;
+  }
+}
+
+/* Small mobile */
+@media (max-width: 640px) {
+  .case-hero-title h1 {
+    letter-spacing: 0.06em;
+  }
+
+  .case-meta {
+    font-size: 0.85rem;
+    letter-spacing: 0.05em;
+  }
+}
+
+/* Layout: media + sidebar */
+.case-hero-row {
+  display: grid;
+  grid-template-columns: 1fr 420px;
+  gap: 36px;
+  align-items: stretch;
+  margin-top: 40px;
+}
+
+.case-hero-media {
+  width: 100%;
+}
+
+.case-hero-media img,
+.case-hero-media video {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;
+  border-radius: 2px;
+  aspect-ratio: 4 / 5;
+}
+
+/* Sidebar text */
+.case-hero-text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.case-hero-text h3 {
+  margin: 0 0 14px 0;
+  font-size: 1.05rem;
+  letter-spacing: 0.06em;
+}
+
+.case-hero-text p {
+  margin: 0 0 14px 0;
+  line-height: 1.65;
+  opacity: 0.9;
+}
+
+/* =========================================================
+   INTRO VIDEO
+========================================================= */
+
+.case-intro-video {
+  padding: 60px 0 30px;
+}
+
+.case-intro-video-inner {
+  width: min(1100px, 100%);
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.case-intro-video video {
+  width: 100%;
+  display: block;
+  border-radius: 2px;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+}
+
+/* =========================================================
+   TEXT SECTION
+========================================================= */
+
+.case-text {
+  padding: 40px 0 10px;
+}
+
+.case-text-inner {
+  width: min(720px, 100%);
+  margin: 0 auto;
+  padding: 0 20px;
+  line-height: 1.75;
+  opacity: 0.9;
+}
+
+.case-text-inner p {
+  margin: 0 0 16px 0;
+}
+
+/* =========================================================
+   GALLERY
+========================================================= */
+
+.case-gallery {
+  padding-top: 70px;
+}
+
+.case-gallery-inner {
+  width: min(1440px, 100%);
+  margin: 0 auto;
+  padding: 0 20px;
+
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 24px;
+}
+
+.case-tile {
+  margin: 0;
+  grid-column: span 4;
+}
+
+.case-tile img,
+.case-tile video {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  border-radius: 2px;
+}
+
+/* More curated aspect ratios */
+.case-tile img {
+  aspect-ratio: 3 / 4;
+}
+
+.case-tile video {
+  aspect-ratio: 16 / 9;
+}
+
+/* Text tile */
+.case-text-tile {
+  grid-column: span 12;
+  display: flex;
+  justify-content: center;
+}
+
+.case-text-card {
+  max-width: 900px;
+  padding: 40px 30px;
+  background: #ffffff;
+  border-radius: 6px;
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.05);
+}
+
+.case-text-card h3 {
+  margin: 0 0 10px 0;
+  font-size: 1.2rem;
+}
+
+.case-text-card p {
+  margin: 0 0 12px 0;
+  line-height: 1.65;
+  opacity: 0.9;
+}
+
+/* =========================================================
+   FULL BLEED
+========================================================= */
+
+.case-fullbleed {
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+  margin-top: 70px;
+}
+
+.case-fullbleed-inner {
+  width: min(1440px, 100%);
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.case-fullbleed img {
+  width: 100%;
+  height: 90vh;
+  object-fit: cover;
+  display: block;
+}
+
+/* =========================================================
+   BACK TO TOP
+========================================================= */
+
+.case-back-top {
+  margin-top: 70px;
+  width: min(1440px, 100%);
+  margin-left: auto;
+  margin-right: auto;
+  padding: 0 20px;
+}
+
+.case-back-top a {
+  text-decoration: none;
+  color: inherit;
+  opacity: 0.7;
+  font-size: 0.9rem;
+  letter-spacing: 0.05em;
+  transition: opacity 0.2s ease;
+}
+
+.case-back-top a:hover {
+  opacity: 1;
+}
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 1000px) {
+  .case-hero-row {
+    grid-template-columns: 1fr;
+  }
+
+  .case-hero-text {
+    margin-top: 30px;
+  }
+
+  .case-tile {
+    grid-column: span 6;
+  }
+}
+
+@media (max-width: 700px) {
+  .case-tile {
+    grid-column: span 12;
+  }
+
+  .case-hero {
+    padding: 90px 0 30px;
+  }
+
+  .case-gallery {
+    padding-top: 50px;
+  }
+
+  .case-fullbleed img {
+    height: 70vh;
+  }
+}

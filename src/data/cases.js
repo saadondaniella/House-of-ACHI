@@ -7,7 +7,7 @@ export const cases = [
 
     heroMedia: {
       type: "image",
-      src: "/images/cases/denim/denim-hero.jpg",
+      src: "/images/cases/denim/denim-1.jpg",
       alt: "Denim campaign hero",
     },
 
@@ -97,6 +97,63 @@ export const cases = [
       "/images/cases/denim/D4.jpg",
       "/images/cases/denim/D14.jpg",
     ],
+  },
+  {
+    slug: "stillback",
+    title: "STILLBACK",
+    year: "2026",
+    client: "Stillback",
+    heroMedia: {
+      type: "image",
+      src: "/images/cases/stillback/stillback.jpg",
+      alt: "Stillback hero",
+    },
+
+    preview: [
+      "/images/cases/stillback/stillback1.jpg",
+      "/images/cases/stillback/stillback6.jpg",
+      "/images/cases/stillback/stillback2.jpg",
+    ],
+    gallery: [
+      {
+        type: "image",
+        src: "/images/cases/stillback/stillback.jpg",
+        size: "wide",
+      },
+      {
+        type: "image",
+        src: "/images/cases/stillback/stillback1.jpg",
+        size: "tall-left",
+      },
+      {
+        type: "image",
+        src: "/images/cases/stillback/stillback2.jpg",
+        size: "top-right",
+      },
+      {
+        type: "image",
+        src: "/images/cases/stillback/stillback3.jpg",
+        size: "wide",
+      },
+      {
+        type: "image",
+        src: "/images/cases/stillback/stillback4.jpg",
+        size: "wide",
+      },
+      {
+        type: "image",
+        src: "/images/cases/stillback/stillback6.jpg",
+        size: "wide",
+      },
+    ],
+    heroText: {
+      title: "Brand Awareness Event – Concept & Execution",
+      paragraphs: [
+        "To strengthen brand awareness and create a stronger emotional connection with the audience, we developed and executed a concept-driven event designed to bring the brand to life.",
+        "The event combined spatial storytelling, curated visual moments, and interactive touchpoints to ensure guests didn’t just attend — they experienced the brand. From atmosphere and material choices to music and flow, every detail was carefully considered to reflect the brand’s identity and values.",
+        "The result was increased visibility, organic social media engagement, and a clearer brand positioning within the target audience.",
+      ],
+    },
   },
   {
     slug: "lacko",

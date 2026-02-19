@@ -11,6 +11,12 @@ export function getStaticPaths() {
 
 const { caseItem } = Astro.props;
 const gallery = caseItem.gallery || [];
+
+const fullWidthSrc =
+  caseItem.fullWidthImage ||
+  (gallery.filter((g) => g.type === "image").length
+    ? gallery.filter((g) => g.type === "image").slice(-1)[0].src
+    : null);
 ---
 
 <BaseLayout title={`${caseItem.title} — House of Achi`}>
@@ -29,23 +35,36 @@ const gallery = caseItem.gallery || [];
             </div>
           </div>
 
-          <div class="case-hero-media">
+          <div class="case-hero-row">
+            <div class="case-hero-media">
+              {
+                caseItem.heroMedia.type === "image" ? (
+                  <img
+                    src={caseItem.heroMedia.src}
+                    alt={caseItem.heroMedia.alt ?? ""}
+                    loading="eager"
+                  />
+                ) : (
+                  <video
+                    src={caseItem.heroMedia.src}
+                    autoplay
+                    muted
+                    loop
+                    playsinline
+                    preload="metadata"
+                  />
+                )
+              }
+            </div>
+
             {
-              caseItem.heroMedia.type === "image" ? (
-                <img
-                  src={caseItem.heroMedia.src}
-                  alt={caseItem.heroMedia.alt ?? ""}
-                  loading="eager"
-                />
-              ) : (
-                <video
-                  src={caseItem.heroMedia.src}
-                  autoplay
-                  muted
-                  loop
-                  playsinline
-                  preload="metadata"
-                />
+              caseItem.heroText && (
+                <aside class="case-hero-text">
+                  <h3>{caseItem.heroText.title}</h3>
+                  {caseItem.heroText.paragraphs?.map((p) => (
+                    <p>{p}</p>
+                  ))}
+                </aside>
               )
             }
           </div>
@@ -116,228 +135,24 @@ const gallery = caseItem.gallery || [];
           }
         </div>
       </section>
+      {
+        fullWidthSrc && (
+          <section class="case-fullbleed" aria-hidden="false">
+            <div class="case-fullbleed-inner">
+              <img
+                src={fullWidthSrc}
+                alt={caseItem.title ?? ""}
+                loading="lazy"
+              />
+            </div>
+          </section>
+        )
+      }
+
       <section class="case-back-top">
         <a href="#top">↑ Back to top</a>
       </section>
     </main>
   </main>
 
-  <style>
-    .case-page {
-      padding-bottom: 120px;
-    }
-
-    /* HERO: mer subtil, mindre "splash" */
-    .case-hero {
-      padding: 90px 0 30px; /* mindre luft än innan */
-    }
-
-    .case-hero-inner {
-      width: 1440px;
-      max-width: 100%;
-      margin: 0 auto;
-      padding: 0 20px;
-    }
-
-    .case-back {
-      display: inline-block;
-      text-decoration: none;
-      color: inherit;
-      opacity: 0.8;
-      margin-bottom: 18px;
-    }
-
-    .case-back:hover {
-      opacity: 1;
-    }
-
-    .case-hero-title h1 {
-      margin: 0;
-      font-size: clamp(2.4rem, 6.5vw, 5.4rem);
-      letter-spacing: 0.08em;
-      line-height: 1;
-    }
-
-    .case-meta {
-      margin-top: 10px;
-      display: flex;
-      gap: 14px;
-      opacity: 0.8;
-      font-size: 0.95rem;
-    }
-
-    /* HERO MEDIA: smalare + max-bredd så den känns subtil */
-    .case-hero-media {
-      margin-top: 28px;
-      width: min(780px, 100%); /* <-- detta gör heron mer subtil */
-      margin-left: auto; /* högerställd (passar din vibe) */
-    }
-
-    .case-hero-media img,
-    .case-hero-media video {
-      width: 100%;
-      height: auto;
-      display: block;
-      object-fit: cover;
-      border-radius: 2px;
-      aspect-ratio: 4 / 5; /* ger mer "editorial" känsla än superwide */
-    }
-
-    /* Intro-video: lite bredare än hero för hierarki */
-    .case-intro-video {
-      padding: 44px 0 24px;
-    }
-
-    .case-intro-video-inner {
-      width: min(1100px, 100%);
-      margin: 0 auto;
-      padding: 0 20px;
-    }
-
-    .case-intro-video video {
-      width: 100%;
-      height: auto;
-      display: block;
-      object-fit: cover;
-      border-radius: 2px;
-      aspect-ratio: 16 / 9;
-    }
-
-    /* Text */
-    .case-text {
-      padding: 26px 0 10px;
-    }
-
-    .case-text-inner {
-      width: min(700px, 100%);
-      margin: 0 auto;
-      padding: 0 20px;
-      line-height: 1.7;
-      opacity: 0.95;
-    }
-
-    .case-text-inner p {
-      margin: 0 0 14px;
-    }
-
-    /* Gallery */
-    .case-gallery {
-      padding-top: 40px;
-    }
-
-    .case-gallery-inner {
-      width: 1440px;
-      max-width: 100%;
-      margin: 0 auto;
-      padding: 0 20px;
-      display: grid;
-      grid-template-columns: repeat(12, 1fr);
-      gap: 22px;
-    }
-
-    .case-text-tile {
-      grid-column: span 12;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    .case-text-card {
-      max-width: 900px;
-      padding: 28px 20px;
-      background: #fff;
-      border-radius: 8px;
-      box-shadow: 0 12px 30px rgba(10, 12, 20, 0.06);
-      border: 1px solid rgba(10, 10, 10, 0.04);
-    }
-    .case-text-card h3 {
-      margin: 0 0 8px 0;
-      font-size: 1.2rem;
-    }
-    .case-text-card p {
-      margin: 0 0 10px 0;
-      line-height: 1.6;
-      opacity: 0.95;
-    }
-
-    .case-tile {
-      margin: 0;
-      grid-column: span 4; /* 4, 6, 8 bestämmer antal bilder */
-    }
-
-    .case-tile img,
-    .case-tile video {
-      width: 100%;
-      height: 100%;
-      display: block;
-      object-fit: cover;
-      border-radius: 2px;
-    }
-
-    /* Gör bilderna konsekventa i höjd också (så det känns curated) */
-    .case-tile img {
-      aspect-ratio: 3 / 4;
-    }
-
-    .case-tile video {
-      aspect-ratio: 16 / 9;
-    }
-
-    /* Tablet */
-    @media (max-width: 900px) {
-      .case-hero {
-        padding: 80px 0 22px;
-      }
-
-      .case-hero-media {
-        width: min(720px, 100%);
-        margin-left: 0; /* mer neutral på tablet */
-      }
-
-      .case-intro-video {
-        padding: 34px 0 18px;
-      }
-
-      .case-tile {
-        grid-column: span 12;
-      }
-    }
-
-    /* Small mobile */
-    @media (max-width: 640px) {
-      .case-hero-title h1 {
-        letter-spacing: 0.06em;
-      }
-
-      .case-hero-media img,
-      .case-hero-media video {
-        aspect-ratio: 4 / 5;
-      }
-
-      .case-intro-video video {
-        aspect-ratio: 16 / 9;
-      }
-    }
-
-    .case-back-top {
-      margin-top: 50px;
-      width: 1440px;
-      max-width: 100%;
-      margin-left: auto;
-      margin-right: auto;
-      padding: 0 20px; /* samma sid-padding som resten */
-      text-align: left;
-    }
-
-    .case-back-top a {
-      text-decoration: none;
-      color: inherit;
-      opacity: 0.8;
-      letter-spacing: 0.05em;
-      font-size: 0.9rem;
-    }
-
-    .case-back-top a:hover {
-      opacity: 1;
-    }
-  </style>
 </BaseLayout>

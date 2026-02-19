@@ -1,5 +1,7 @@
 ---
 import "../styles/global.css";
+import "../styles/cases.css";
+import "../styles/case-page.css";
 
 const { title = "House of Achi", description = "" } = Astro.props;
 ---
@@ -17,9 +19,25 @@ const { title = "House of Achi", description = "" } = Astro.props;
       href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
       rel="stylesheet"
     />
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/site/logo.png" />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="/images/site/logo.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="/images/site/logo.png"
+    />
+    <link rel="shortcut icon" href="/images/site/logo.png" />
   </head>
   <body>
-    <slot />
+    <main id="app">
+      <slot />
+    </main>
 
     <script type="module" src="/scripts/script.js"></script>
   </body>

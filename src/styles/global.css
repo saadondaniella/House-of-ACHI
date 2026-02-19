@@ -13,6 +13,28 @@ body {
   font-family: "Montserrat", sans-serif;
 }
 
+/* Page transition states */
+html.is-exiting {
+  pointer-events: none;
+}
+
+html.is-loading body {
+  opacity: 0;
+  transform: translateY(4px);
+}
+
+html.is-exiting body {
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity 300ms ease, transform 300ms ease;
+}
+
+html.is-ready body {
+  opacity: 1;
+  transform: none;
+  transition: opacity 350ms ease, transform 350ms ease;
+}
+
 /* HERO */
 .hero {
   min-height: 85vh;
@@ -71,6 +93,48 @@ body {
   letter-spacing: 10px;
 }
 
+/* =========================================================
+   Mobile tweaks (keep same design, just smaller + bigger block)
+========================================================= */
+@media (max-width: 640px) {
+  /* Logo smaller */
+  .hero-logo {
+    width: 100px;
+    height: 100px;
+    margin-bottom: 22px;
+  }
+
+  /* Make the image behind H1 bigger */
+  .hero-block {
+    width: min(520px, 85vw);
+    top: 78%; /* small tweak so it stays nicely behind text */
+  }
+
+  /* Slightly smaller H1 (optional but helps fit) */
+  .hero-title {
+    padding-top: 18%;
+    font-size: clamp(2.4rem, 10vw, 3.8rem);
+    letter-spacing: 6px;
+    line-height: 1.05;
+  }
+
+  /* Navbar: keep same layout, just reduce size */
+  .hero-nav {
+    padding: 24px 0; /* was 40px */
+  }
+
+  .hero-links a {
+    font-size: 0.9rem;      /* was 1rem */
+    letter-spacing: 0.07em; /* was 0.08em */
+  }
+
+  /* Keep your current mobile nav behavior */
+  .hero-links {
+    gap: 12px; /* was 14px */
+  }
+}
+
+
 /* NAV (fullbredd sticky bar) */
 .hero-nav {
   position: sticky;
@@ -108,7 +172,6 @@ body {
 .hero-links a {
   text-decoration: none;
   color: inherit;
-
   font-size: 1rem;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -138,11 +201,13 @@ body {
     grid-template-columns: 1fr;
     gap: 12px;
   }
+
   .hero-title {
     padding-top: 20%;
     letter-spacing: 6px;
     line-height: 1.1;
   }
+
   .hero-line {
     display: none;
   }
@@ -188,7 +253,7 @@ body {
   display: grid;
   grid-template-columns: repeat(12, 1fr);
   row-gap: 60px;
-  margin-bottom: -140px; /* <-- matcha din translateY */
+  margin-bottom: -140px;
   padding-bottom: 140px;
 }
 
@@ -209,15 +274,17 @@ body {
   grid-column: 4 / 8;
   max-width: 300px;
   justify-self: start;
-  margin-top: -140px; /* <-- detta tar bort spökspace */
+  margin-top: -140px;
 }
 
 /* Tablet + Mobile */
 @media (max-width: 900px) {
   .who-media {
     grid-template-columns: 1fr;
-    gap: 30px; /* tydligt mellanrum */
-    row-gap: initial; /* för säkerhets skull */
+    gap: 30px;
+    row-gap: initial;
+    margin-bottom: 0;
+    padding-bottom: 0;
   }
 
   .who-image--secondary {
@@ -229,7 +296,7 @@ body {
     grid-column: auto;
     max-width: 100%;
     justify-self: center;
-    transform: none; /* <-- VIKTIG: tar bort "uppflytt" i mobil */
+    transform: none;
   }
 }
 
@@ -241,7 +308,6 @@ body {
 }
 
 /* THE ACHI WAY */
-
 .section-way {
   padding-top: 50px;
 }
@@ -279,158 +345,3 @@ body {
   font-size: 1rem;
 }
 
-/* CASES */
-.cases {
-  margin-top: 140px;
-}
-
-.case-panel {
-  position: relative;
-  display: block;
-  min-height: 100vh;
-  text-decoration: none;
-  color: inherit;
-  /* padding: 120px 0; */
-}
-
-/* Variant för single-panel (t.ex. lacko) — mindre höjd så nästa sektion ligger utanför panelen */
-.case-panel--single {
-  min-height: auto;
-  padding: 60px 0;
-}
-
-.case-grid {
-  width: min(1100px, 100%);
-  margin: 0 auto;
-  padding: 0 20px;
-
-  display: grid;
-  grid-template-columns: repeat(12, 1fr);
-  grid-auto-rows: 60px;
-  gap: 22px;
-  align-items: start;
-}
-
-/* Keep images and grids within viewport so following sections are not overlapped */
-.case-panel {
-  overflow: hidden;
-}
-.case-grid,
-.case-media {
-  max-height: 100vh;
-}
-.case-img {
-  max-height: 100vh;
-  height: auto;
-  display: block;
-}
-
-.case-img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-}
-
-/* Placeringar (matcha Keynote-känslan) */
-.case-img--tall {
-  grid-column: 1 / 6;
-  grid-row: 1 / 10;
-}
-
-.case-img--top {
-  grid-column: 8 / 13;
-  grid-row: 1 / 5;
-}
-
-.case-img--wide {
-  grid-column: 7 / 15;
-  grid-row: 6 / 10;
-}
-
-.case-title-denim {
-  position: absolute;
-  left: 18%;
-  top: 18%;
-  font-size: clamp(3rem, 8vw, 8rem);
-  letter-spacing: 0.05em;
-  line-height: 1;
-  margin: 0;
-  color: #bfff00;
-}
-
-@media (max-width: 768px) {
-  .case-panel {
-    grid-template-columns: 1fr;
-    min-height: 80vh;
-  }
-
-  .case-media {
-    grid-column: auto;
-  }
-
-  .case-title {
-    position: absolute;
-    bottom: 10%;
-    left: 5%;
-    font-size: 2.5rem;
-  }
-}
-.case-panel:hover .case-title-denim {
-  transform: translateY(-6px);
-  transition: transform 500ms ease;
-}
-
-@media (max-width: 768px) {
-  .case-grid {
-    display: flex;
-    gap: 16px;
-
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    -webkit-overflow-scrolling: touch;
-
-    padding-left: 20px;
-    padding-right: 20px;
-
-    scroll-padding-left: 20px;
-  }
-
-  .case-img {
-    flex: 0 0 80vw;
-    aspect-ratio: 4 / 5;
-    scroll-snap-align: start;
-    border-radius: 2px;
-  }
-
-  /* Neutralisera grid-positioner */
-  .case-img--tall,
-  .case-img--top,
-  .case-img--wide {
-    grid-column: auto;
-    grid-row: auto;
-  }
-
-  /* Dölj scrollbar snyggt */
-  .case-grid::-webkit-scrollbar {
-    display: none;
-  }
-
-  .case-grid {
-    scrollbar-width: none; /* Firefox */
-  }
-
-  .case-title-denim {
-    left: 8%;
-    top: 14%;
-    font-size: clamp(2.4rem, 10vw, 3.6rem);
-  }
-  .cases {
-    margin-top: 60px;
-  }
-
-  .case-panel {
-    min-height: auto;
-    padding: 40px 0;
-  }
-}
